@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title></title>
+	<link rel="stylesheet" type="text/css" href="style.css">
+</head>
+<body>
+   <fieldset>
+    <legend>Nouveau dossier</legend>
+ <div class="container">
+
+   <div class="content">
+
+    <form action="save.php" method="post">
+
+      <div class="user-details">
+
+        <div class="filiere">
+             <span class="details">Filière</span>
+              <select name="filiere"  class="filiere" required>
+               <option>Selectionner une Filière</option>
+               <option value="filière1">filière1</option>
+               <option value="filière2">filière2</option>
+               <option value="filière3">filière3</option>
+               <option value="filière4">filière4</option>
+               </select>
+        </div>
+
+        <div class="input-box">
+		        <span class="details">Département</span>
+		        <select name="departement" class="select"  required>
+		          <option>Selectionner un Département</option>
+		           <option value="departement1">departement1</option>
+                   <option value="departement2">departement2</option>
+                   <option value="departement3">departement3</option>
+                   <option value="departement4">departement4</option>
+		        </select>
+       </div>
+        
+
+        <div class="input-box">
+		        <span class="details">Commune</span>
+		        <select name="commune" class="select" id="commune" required>
+<!-- 		          <option>Selectionner une Commune</option>
+		            <option value="commune1">commune1</option>
+                   <option value="commune2">commune2</option>
+                   <option value="commune3">commune3</option>
+                   <option value="commune4">commune4</option> -->
+		        </select>
+        </div>
+
+        <div class="input-box">
+		        <span class="details">Arrondissement</span>
+		        <select name="arrondissement" class="select" required>
+		          <option>Selectionner un Arrondissement</option>
+		            <option value="arrondissement1">arrondissement1</option>
+                   <option value="arrondissement2">arrondissement2</option>
+                   <option value="arrondissement3">arrondissement3</option>
+                   <option value="arrondissement4">arrondissement4</option>
+		        </select>
+         </div>
+
+         <div class="input-box">
+		        <span class="details">Village</span>
+		        <select name="village" class="select" required>
+		          <option>Selectionner un Village</option>
+		           <option value="village1">village1</option>
+                   <option value="village2">village2</option>
+                   <option value="village3">village3</option>
+                   <option value="village4">village4</option>
+		        </select>
+        </div>
+
+        <div class="input-box">
+		        <span class="details">Nom du cluster</span>
+		       <input type="text" name="name_cluster" class="input" required></br>
+        </div>
+     </div>
+             <button type="reset" >Annuler</button>
+ 
+             <button type="submit">Enregistrer</button>
+
+    </form>
+</div>
+</div>
+   </fieldset>
+<!-- <script type="text/javascript">
+
+$(document).ready(function function_name() {
+
+  var option = document.getElementById("commune").options;
+
+  if(document.getElementById('departement').value == "departement1" ){
+     
+     $("status").apprend('<option>Commune1</option>');
+     $("status").apprend('<option>Commune2</option>');
+     $("status").apprend('<option>Commune3</option>');
+
+  }
+
+    if(document.getElementById('departement').value == "departement2" ){
+     
+     $("status").apprend('<option>Commune4</option>');
+     $("status").apprend('<option>Commune5</option>');
+     $("status").apprend('<option>Commune6</option>');
+
+  }
+
+
+    // body...
+});
+
+</script> -->
+</body>
+</html>
+
+
+
+
+<?php
+
+include("connect.php");
+
+
+
+function get_cluster() {
+
+global $con ;
+
+$liste = "select * from clusters order by nom ASC" ;
+
+$requete = mysqli_query($con , $liste);
+
+while ($req1 = mysqli_fetch_array($requete)) {
+   
+   $nom_cluster = $req1['nom'];
+   $idfiliere = $req1['idFiliere'];
+   $idVillage = $req1['idVillage'];
+
+   $liste2 = "select * from village where idVillage='$idVillage'";
+
+   $requete2 = mysqli_query($con, $liste2);
+  
+       while ($req2 = mysqli_fetch_array($requete2)) {
+   
+            $nom_village = $req2['nom'];
+            $idArrondissement = $req2['idArrondissement'];
+
+             $liste3 = "select * from arrondissement where idArrondissement='$idArrondissement'";
+             $requete3 = mysqli_query($con , $liste3);
+
+             while ($req3 = mysqli_fetch_array($requete3)) {
+
+                $nom_arrondissement = $req3['nom'];
+                $idcommune = $req3['IdCommune'];
+
+                 $liste4 = "select * from communes where IdCommune='$idcommune'";
+                 $requete4 = mysqli_query($con , $liste4);
+
+                 while ($req4 = mysqli_fetch_array($requete4)) {
+
+                    $nom_commune = $req4['nom'];
+                    $iddepartement = $req4['idDepartement'];
+
+
+                     $liste5 = "select * from departement where idDepartement='$iddepartement'";
+                     $requete5= mysqli_query($con , $liste5);
+
+                     while ($req5 = mysqli_fetch_array($requete5)) {
+
+                        $nom_departement = $req5['nom'];
+                        
+
+                              echo "
+                            <tr>
+                             <td> $nom_cluster </td>
+                              <td> $idfiliere</td>
+
+                               <td>$nom_departement</td>
+                                <td>$nom_commune </td>
+                                 <td> $nom_arrondissement </td>
+                                  <td>$idVillage</td>
+                            </tr> ";
+          }
+        }
+      }
+    }
+  }
+}
+?>
