@@ -1,0 +1,73 @@
+body{
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  padding: 10px;
+  font-family: Arial;
+  font-size: 12px;
+}
+
+.content form .user-details{
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  margin: 20px 12 12px 0;
+
+}
+
+form .user-details .input-box{
+  margin-bottom: 15px;
+  width: calc(100% / 2 );
+}
+
+form .input-box span.details{
+  display: block;
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
+.user-details .input-box select{
+  width: 460px;
+}
+
+form .user-details .filiere{
+     
+     margin-bottom: 15px;
+     width: 957px;
+}
+
+
+
+form .filiere span.details{
+  display: block;
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
+form .user-details .input{
+    
+     margin-bottom: 15px;
+     width: 950px;
+}
+
+fieldset{
+  margin-right: 100px;
+  margin-left: 100px;
+  padding-right: 100px;
+}
+form{
+
+  background-color: #ECF0F5;
+}
+button[type="submit"]{
+      background-color: #00C0EF;
+      color: white;
+      border-color: #00C0EF ;
+}
+button[type="reset"]{
+      background-color: #F39C12;
+      color: white;
+      border-color: #F39C12 ;
+}
